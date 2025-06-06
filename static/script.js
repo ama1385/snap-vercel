@@ -1,5 +1,4 @@
 const BACKEND_URL = "https://snap-backend-2lgr.onrender.com";
-
 function handleLogin(event) {
   event.preventDefault();
   const user = document.getElementById('username').value;
